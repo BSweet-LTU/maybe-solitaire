@@ -3,6 +3,7 @@
  */
 package login;
 
+import java.awt.Color;
 import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -12,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -24,7 +26,7 @@ public class RegisterDialog extends JDialog {
 	private JPasswordField password1;
 	private JPasswordField password2;
 	private JTextField username;
-	private JLabel feedback = new JLabel();
+	private JLabel feedback;
 	private JButton registerButton;
 	private LogInHandler lih;
 	
@@ -36,25 +38,32 @@ public class RegisterDialog extends JDialog {
 	
 	public void init() {
 		this.setTitle( "Log in" );
-		this.setLayout( new GridLayout(4, 2) );
+		this.setLayout( new GridLayout(5, 2) );
+		feedback = new JLabel( "Choose your username and password." );
+		this.add( feedback );
+		JPanel prow = new JPanel(new GridLayout(1,2));
 		JLabel lbl1 = new JLabel( "Username: " );
-		this.add( lbl1 );
-		username = new JTextField();
-		this.add(username);
+		prow.add(lbl1);
+		this.username = new JTextField();
+		prow.add(username);
+		this.add(prow);
+		prow = new JPanel(new GridLayout(1,2));
 		lbl1 = new JLabel( "Password: " );
-		this.add(lbl1);
+		prow.add(lbl1);
 		password1 = new JPasswordField();
-		this.add(password1);
+		prow.add(password1);
+		this.add(prow);
+		prow = new JPanel(new GridLayout(1,2));
 		lbl1 = new JLabel( "Retype password: " );
-		this.add( lbl1 );
+		prow.add(lbl1);
 		password2 = new JPasswordField();
-		this.add(password2);
+		prow.add(password2);
+		this.add(prow);
 		registerButton = new JButton( "Register" );
 		registerButton.addActionListener( new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				lih.validateRegister();
 			}
 			
@@ -98,7 +107,11 @@ public class RegisterDialog extends JDialog {
 	 * @param feedback the feedback to set
 	 */
 	protected void setFeedback( String feedback ) {
-		this.feedback = new JLabel( feedback );
+		this.feedback.setVisible(false);
+		this.feedback.setForeground( Color.RED );
+		this.feedback.setText(feedback);
+		this.pack();
+		this.feedback.setVisible(true);
 	}
 	
 	

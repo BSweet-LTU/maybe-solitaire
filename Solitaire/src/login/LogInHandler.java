@@ -57,7 +57,9 @@ public class LogInHandler {
 		else if( uname.length() < 3 ) 
 			register.setFeedback( "You have to enter a username with at least 3 signs" );
 		else if( pwd1.length() < 6 )
-			register.setFeedback( "You have to enter a password with at least 3 signs" );
+			register.setFeedback( "You have to enter a password with at least 6 signs" );
+		else if( (this.passwordToString(register.getPassword1()).length()<6) || !(pwd1.equals(this.passwordToString(register.getPassword1())))  )
+			register.setFeedback( "The validation of your password has to be the same as your password" );
 		else {
 			users.createNewUser(register.getUsername(), pwd1 );
 			register.setVisible(false);
@@ -72,6 +74,7 @@ public class LogInHandler {
 	public void readUsers() {
 		users.setUsers( ReadWriteUsers.readUsers() );
 	}
+	
 	
 	/**
 	 * Prepares the object for garbage collector.
