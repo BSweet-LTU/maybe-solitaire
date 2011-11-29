@@ -3,6 +3,7 @@
  */
 package login;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,7 +17,11 @@ import javax.swing.*;
  */
 public class LogInDialog extends JDialog {
 
-	private /*JTextField*/ JPasswordField password;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JPasswordField password;
 	private JTextField username;
 	private JLabel feedback = new JLabel();
 	private JButton logInButton;
@@ -32,37 +37,38 @@ public class LogInDialog extends JDialog {
 	public void init() {
 		this.setTitle( "Log in" );
 		this.setLayout( new GridLayout(4, 2) );
-		feedback = new JLabel( "Type your username and password in." );
+		this.feedback = new JLabel( "Type your username and password in." );
 		this.add( feedback );
-		this.add( new JLabel("") );
+		JPanel prow = new JPanel(new GridLayout(1,2));
 		JLabel lbl1 = new JLabel( "Username: " );
-		this.add( lbl1 );
-		username = new JTextField();
-		this.add(username);
+		prow.add(lbl1);
+		this.username = new JTextField();
+		prow.add(username);
+		this.add(prow);
+		prow = new JPanel(new GridLayout(1,2));
 		JLabel lbl2 = new JLabel( "Password: " );
-		this.add(lbl2);
-		password = new JPasswordField();
-		this.add(password);
-		logInButton = new JButton( "Log in" );
-		logInButton.addActionListener( new ActionListener() {
-
+		prow.add(lbl2);
+		this.password = new JPasswordField();
+		prow.add(password);
+		this.add(prow);
+		prow = new JPanel(new GridLayout(1,2));
+		this.logInButton = new JButton( "Log in" );
+		this.logInButton.addActionListener( new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				lih.validateLogIn();
 			}
-			
 		});
-		this.add( logInButton );
+		prow.add(logInButton);
 		JButton registerButton = new JButton( "Make new account" );
 		registerButton.addActionListener( new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				lih.createNewAccount();
 			}
-			
 		});
-		this.add(registerButton);
+		prow.add(registerButton);
+		this.add(prow);
 		this.setSize( 450, 400 );
 		this.pack();
 		this.setLocationRelativeTo(getRootPane());
@@ -81,6 +87,7 @@ public class LogInDialog extends JDialog {
 	 */
 	protected void setFeedback( String feedback ) {
 		this.feedback.setVisible(false);
+		this.feedback.setForeground( Color.RED );
 		this.feedback.setText(feedback);
 		this.feedback.setVisible(true);
 	}

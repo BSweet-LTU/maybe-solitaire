@@ -26,6 +26,10 @@ public class User implements Serializable {
 		this.userID = ID;
 	}
 	
+	public User( String username, String password ) {
+		this( 0, username, password );
+	}
+	
 	/**
 	 * @return the user name
 	 */
@@ -75,7 +79,7 @@ public class User implements Serializable {
 	}
 	
 	public boolean isPassword( String password ) {
-		if( this.getPassword().equalsIgnoreCase(this.encryptedPassword(password)) ) 
+		if( this.getPassword().equals(this.encryptedPassword(password)) ) 
 			return true;
 		else
 			return false;
