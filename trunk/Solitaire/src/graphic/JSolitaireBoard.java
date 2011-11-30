@@ -45,7 +45,7 @@ public class JSolitaireBoard extends JPanel {
 	public JSolitaireBoard( JFrame owner ) {
 		this.owner = (Solitaire) owner;
 		this.board = new SolitaireBoard();
-		this.setLayout( new GridLayout(7, 7) );
+		this.setLayout( /*new GridLayout(7, 7)*/ null );
 		this.setPreferredSize( new Dimension((7*50)+5,(7*50)+5) );
 		
 		jboard = new JSolitaireSpace[7][7];
