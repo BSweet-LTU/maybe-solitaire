@@ -5,6 +5,7 @@ package graphic;
 
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -41,6 +42,7 @@ public class Solitaire extends JFrame {
 	private JMenuItem topScore;
 	private JMenuItem help;
 	private JMenuItem about;
+	private JStatusBar statusBar;
 	
 	private static JSolitaireBoard board;
 	
@@ -54,17 +56,18 @@ public class Solitaire extends JFrame {
 		board = new JSolitaireBoard( this );
 		
 		c = this.getContentPane();
-		c.setLayout( new FlowLayout() );
-		c.add( board );
+		//c.setLayout( new FlowLayout() );
+		c.setLayout( new BorderLayout() );
+		c.add( board, BorderLayout.CENTER );
 		
-		// TODO Make a spacebar with the score on, WIP
+		// TODO Make a statusbar with the score on, WIP
 		/*JPanel statusbar = new JPanel();
 		JLabel test = new JLabel( "Dit is een test" );
-		//statusbar.setSize( 600 , 30 );
-		statusbar.setSize( new Dimension(600,35) );
 		statusbar.setBackground( Color.ORANGE );
 		statusbar.add( test );
-		c.add( statusbar );*/
+		c.add( statusbar, BorderLayout.SOUTH );*/
+		JStatusBar s = new JStatusBar();
+		this.setJStatusBar(s);
 		
 		
 		this.setMenu();
@@ -73,7 +76,7 @@ public class Solitaire extends JFrame {
 		this.setSize( 500, 450 );
 		this.setMinimumSize( new Dimension(board.getPreferredSize().width+10, board.getPreferredSize().height+30) );
 		this.setLocationRelativeTo(getRootPane());
-		this.setResizable( false );
+		//this.setResizable( false );
 		lih = new LogInHandler( this );
 		this.setVisible( true );
 		
@@ -197,6 +200,11 @@ public class Solitaire extends JFrame {
 		c.repaint();
 		board.repaint();
 		this.setVisible( true );
+	}
+	
+	public void setJStatusBar( JStatusBar statusbar ) {
+		this.statusBar = statusbar;
+		this.add( this.statusBar , BorderLayout.SOUTH );
 	}
 
 }
