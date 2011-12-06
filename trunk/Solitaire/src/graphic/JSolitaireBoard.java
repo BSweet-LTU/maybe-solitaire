@@ -37,7 +37,7 @@ public class JSolitaireBoard extends JPanel {
 	
 	private SolitaireBoard board;
 	private JSolitaireSpace[][] jboard;
-	private JSolitaireSpace selected;
+	private /*JSolitaireSpace*/ MouseEvent selected;
 	private Solitaire owner;
 	
 	private int selects = 0;
@@ -58,11 +58,12 @@ public class JSolitaireBoard extends JPanel {
 				//sp.setEnabled( false );
 				sp.addMouseListener( new MouseAdapter() {
 					@Override
-					public void mouseClicked( MouseEvent arg0 ) {
-						JSolitaireSpace s = (JSolitaireSpace)arg0.getSource();
+					public void mouseClicked( MouseEvent e ) {
+						JSolitaireSpace s = (JSolitaireSpace)e.getSource();
 						s.select();
 						//s.repaint();
-						move( s );
+						System.out.println( e.getXOnScreen() );
+						move( e );
 					}
 					@Override
 					public void mouseEntered( MouseEvent arg0 ) {
@@ -96,7 +97,8 @@ public class JSolitaireBoard extends JPanel {
 	}
 	
 	// No Good, TODO fix this shit
-	private void sssh( JSolitaireSpace s ) {
+	private void sssh( /*JSolitaireSpace s*/ MouseEvent e ) {
+		JSolitaireSpace s = (JSolitaireSpace)e.getSource();
 		ArrayList<SolitaireSpace> options = board.getOptions( s.getSp() );
 		if( options.size() == 0 ) {
 			selects = 0;
@@ -104,7 +106,7 @@ public class JSolitaireBoard extends JPanel {
 		}
 		else {
 			++selects;
-			selected = s;
+			selected = e;
 			repaintBoard();
 		}
 	}
@@ -122,13 +124,14 @@ public class JSolitaireBoard extends JPanel {
 		return isOption;
 	} 
 	
-	/* Moves the Pawns graphicaly */
-	private void move( JSolitaireSpace s ) {
+	/* Moves the Pawns graphically */
+	private void move( /*JSolitaireSpace s*/ MouseEvent e ) {
+		JSolitaireSpace s = (JSolitaireSpace)e.getSource();
 		if( !board.stillPossibleMoves() )
 			lostDialog();
 		// If you already have select a pawn
 		if( selects == 1 ) {
-			JSolitaireSpace s1 = selected;
+			JSolitaireSpace s1 = (JSolitaireSpace)selected.getSource();
 			JSolitaireSpace s2 = s;
 			if( s1 != s2 ) {
 				// if viable Move
@@ -146,6 +149,8 @@ public class JSolitaireBoard extends JPanel {
 					//s3.repaint();
 					selects = 0;
 					repaintBoard();
+					System.out.println( s1.getX() + " - " + s1.getY() );
+					System.out.println( s2.getX() + " - " + s2.getY() );
 					// enable undo menu item
 					Solitaire.getUndo().setEnabled( true );
 				}
@@ -165,7 +170,7 @@ public class JSolitaireBoard extends JPanel {
 		}
 		else {
 			if( !s.getSp().isEmpty() ) {
-				sssh( s );
+				sssh( e );
 			}
 			else {
 				selects = 0;

@@ -26,10 +26,14 @@ public class JSolitaireSpace extends JPanel {
 	private Color color;
 	private Image img;
 	private boolean statusSelected;
+	/*private int x;
+	private int y;*/
 	
 	public JSolitaireSpace() {
 		super();
 		this.setPreferredSize( new Dimension(50, 50) );
+		/*this.setX(0);
+		this.setY(0);*/
 	}
 	
 	/**
@@ -62,6 +66,20 @@ public class JSolitaireSpace extends JPanel {
 	}
 
 	/**
+	 * @return the x
+	 */
+	/*public int getX() {
+		return x;
+	}*/
+
+	/**
+	 * @return the y
+	 */
+	/*public int getY() {
+		return y;
+	}*/
+
+	/**
 	 * @param sp the sp to set
 	 */
 	protected void setSp( SolitaireSpace sp ) {
@@ -76,6 +94,20 @@ public class JSolitaireSpace extends JPanel {
 		this.statusSelected = selected;
 	}
 	
+	/**
+	 * @param x the x to set
+	 */
+	/*protected void setX(int x) {
+		this.x = x;
+	}*/
+
+	/**
+	 * @param y the y to set
+	 */
+	/*protected void setY(int y) {
+		this.y = y;
+	}*/
+
 	/* Sets the image of the pawn */
 	private void setImageBall() {
 		URL url = this.getClass().getResource("ball1.png"); 
