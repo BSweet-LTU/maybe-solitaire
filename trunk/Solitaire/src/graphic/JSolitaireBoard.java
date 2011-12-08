@@ -7,6 +7,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -62,7 +64,6 @@ public class JSolitaireBoard extends JPanel {
 						JSolitaireSpace s = (JSolitaireSpace)e.getSource();
 						s.select();
 						//s.repaint();
-						System.out.println( e.getXOnScreen() );
 						move( e );
 					}
 					@Override
@@ -143,11 +144,18 @@ public class JSolitaireBoard extends JPanel {
 					s1.select();
 					s1.setColor();
 					//s1.repaint();
+					/*Animation a = new Animation( s1, s2, this );
+					Thread t = new Thread( a );
+					t.run();*/
+					//new Animation( s1, s2, this );
+					javax.swing.Timer t = new javax.swing.Timer(100, new AnimationEvent( s1, s2, this ) );
+					t.start();
 					s2.setColor();
 					//s2.repaint();
 					s3.setColor();
 					//s3.repaint();
 					selects = 0;
+					//s1.setLocation(200, 400);
 					repaintBoard();
 					System.out.println( s1.getX() + " - " + s1.getY() );
 					System.out.println( s2.getX() + " - " + s2.getY() );
@@ -195,7 +203,7 @@ public class JSolitaireBoard extends JPanel {
 	}
 	
 	
-	private void repaintBoard() {
+	protected void repaintBoard() {
 		this.repaint();
 	}
 	
@@ -210,5 +218,5 @@ public class JSolitaireBoard extends JPanel {
 					break;
 		}
 	}
-	
+
 }
